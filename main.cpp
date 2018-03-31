@@ -2,6 +2,15 @@
 #include <postgresql/libpq-fe.h>
 #include <string.h>
 #include <vector>
+#include <dirent.h>]
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <vector>
+#include <algorithm>
 using namespace std;
 PGconn* conn;
 PGresult* res;
@@ -24,10 +33,11 @@ struct line
 };
 
 void send_to_db(std::vector<line> massln){
+
     for(int i=0; i<massln.size();i++){
     const char* paramValues[6]={ (char*)massln.at(i).date,(char*)massln.at(i).number,(char*)massln.at(i).number_2,(char*)massln.at(i).number_3,(char*)massln.at(i).call_duration,(char*)massln.at(i).res};
     res=PQexecParams(conn,
-                     "INSERT INTO steer.eir_test (date, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6)",
+                     "INSERT INTO steer_web.eir_test (date, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6)",
                      6,
                      NULL,
                      paramValues,
@@ -38,19 +48,19 @@ void send_to_db(std::vector<line> massln){
     {
         fprintf(stderr, "INSERT failed: %s", PQerrorMessage(conn));
         PQclear(res);
+        PQfinish(conn);
     }
     PQclear(res);
-    delete[] massln.at(i).date;
-    delete[] massln.at(i).number;
-    delete[] massln.at(i).number_2;
-    delete[] massln.at(i).number_3;
-    delete[] massln.at(i).call_duration;
-    delete[] massln.at(i).res;
+    delete massln.at(i).date;
+    delete massln.at(i).number;
+    delete massln.at(i).number_2;
+    delete massln.at(i).number_3;
+    delete massln.at(i).call_duration;
+    delete massln.at(i).res;
     }
 }
 
 void transform_to_timestamp_promat(char* newNumber,char* str){
-    //char* newNumber=(char*)malloc(100);
     int j=0;
     while (*str!='\0') {
      newNumber[j++]=*str;
@@ -75,24 +85,18 @@ void transform_to_timestamp_promat(char* newNumber,char* str){
      }
      str++;
     }
-    //strcat(newNumber,".204132+00:00");
     newNumber[j++]='\0';
 }
 
-int main()
-{
-    conn = PQconnectdb("dbname=steer_main host=172.18.1.82 user=postgres password=terrm1nator");
-    if (PQstatus(conn) == CONNECTION_BAD) {
-        puts("We were unable to connect to the database");
-        return 1;
-    }
+int pars_file(std::string file_name){
+
     FILE* file;
-    char* nameFile="file_numbers.csv";
+    char* nameFile=(char*)file_name.c_str();
     file=fopen(nameFile,"r");
     if(file == NULL)
     {
-        printf("не могу открыть файл");
-        return 0;
+        printf("can not open file");
+        return 2;
     }
     std::vector<line> massln;
     int iter=0;
@@ -109,7 +113,7 @@ int main()
     char* pointer=(char*)&buf;
     line ln;
         while(*pointer!='\0'){
-            if(*pointer!=';'){
+            if(*pointer!=','){
                 str[j++]=*pointer;
                 pointer++;
             }
@@ -151,18 +155,71 @@ int main()
                 i++;
             }
         }
-        memset(buf,0,100);
         massln.push_back(ln);
+        memset(buf,0,100);
         if((massln.size()%10)==0){
             iter=0;
             send_to_db(massln);
             massln.clear();
         }
     }
+    fclose(file);
     if(massln.size()>0){
         send_to_db(massln);
     }
-    fclose(file);
+}
+
+struct file_data
+{
+    int file_mtime;
+    std::string name;
+    file_data() {
+        file_mtime=0;
+        name="";
+    }
+};
+
+bool myfunction (file_data i,file_data j) {
+    return (i.file_mtime>j.file_mtime); }
+
+int main()
+{
+    conn = PQconnectdb("dbname=steer_main host=172.18.1.82 user=postgres password=terrm1nator");
+    if (PQstatus(conn) == CONNECTION_BAD) {
+        puts("We were unable to connect to the database");
+    }
+    DIR* dir;
+    struct dirent* entry;
+    struct stat sb;
+    std::string strDir="./fileFolder";
+    while (1) {
+    vector<file_data> vdata_file;
+    dir=opendir(strDir.c_str());
+    if(dir==NULL){
+        perror("Can not open dir");
+    }
+    while ((entry=readdir(dir))!=NULL) {
+        std::string str_file=entry->d_name;
+        std::string str_dir_file=strDir+"/"+str_file;
+        if(str_file!="."&&str_file!=".."){
+            file_data time_name_file;
+            stat((char*)str_dir_file.c_str(),&sb);
+            time_name_file.file_mtime=sb.st_mtim.tv_sec;
+            time_name_file.name=str_dir_file;
+            vdata_file.push_back(time_name_file);
+        }
+    }
+    std::sort (vdata_file.begin(), vdata_file.end(), myfunction);
+    for(int i=0;i<vdata_file.size();i++){
+        cout<<i<<"-"<<vdata_file.at(i).name;
+        pars_file(vdata_file.at(i).name);
+        std::string str="mv "+vdata_file.at(i).name+" ./New_Test_folder";
+        system(str.c_str());
+        cout<<"\n";
+    }
+    closedir(dir);
+    }
     PQfinish(conn);
+    PQisBusy(conn);
     return 0;
 }
