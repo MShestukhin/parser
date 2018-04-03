@@ -11,19 +11,23 @@
 #include <dirent.h>
 #include <vector>
 #include <algorithm>
+#include <signal.h>
+#include <libconfig.h++>
 using namespace std;
 PGconn* conn;
-PGresult* res;
+libconfig::Config conf;
 struct line
 {
     char* date;
+    char* imsi;
     char* number;
     char* number_2;
     char* number_3;
     char* call_duration;
     char* res;
     line() {
-        date;
+        date="";
+        imsi="";
         number="";
         number_2="";
         number_3="";
@@ -32,13 +36,26 @@ struct line
     }
 };
 
-void send_to_db(std::vector<line> massln){
+struct conf_data
+{
+    std::string str_dir;
+    std::string str_trash_dir;
+    std::string str_dbname;
+    std::string str_dbhost;
+    std::string str_dbuser;
+    std::string str_dbpassword;
+};
 
+void send_to_db(std::vector<line> massln){
+    PGresult* res;
     for(int i=0; i<massln.size();i++){
-    const char* paramValues[6]={ (char*)massln.at(i).date,(char*)massln.at(i).number,(char*)massln.at(i).number_2,(char*)massln.at(i).number_3,(char*)massln.at(i).call_duration,(char*)massln.at(i).res};
+    const char* paramValues[7]={ (char*)massln.at(i).date,(char*)massln.at(i).imsi, (char*)massln.at(i).number,(char*)massln.at(i).number_2,(char*)massln.at(i).number_3,(char*)massln.at(i).call_duration,(char*)massln.at(i).res};
+    std::string str_schema=conf.lookup("application.dataBase.schema");
+    std::string str_table=conf.lookup("application.dataBase.table");
+    std::string insert_cmd_str="INSERT INTO "+str_schema+"."+str_table+" (date, imsi, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6, $7)";
     res=PQexecParams(conn,
-                     "INSERT INTO steer_web.eir_test (date, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6)",
-                     6,
+                     "INSERT INTO steer_web.eir_test (date, imsi, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6, $7)",
+                     7,
                      NULL,
                      paramValues,
                      NULL,
@@ -52,6 +69,7 @@ void send_to_db(std::vector<line> massln){
     }
     PQclear(res);
     delete massln.at(i).date;
+    delete massln.at(i).imsi;
     delete massln.at(i).number;
     delete massln.at(i).number_2;
     delete massln.at(i).number_3;
@@ -130,18 +148,22 @@ int pars_file(std::string file_name){
                     strcpy(ln.date,point);
                     break;
                 case 1:
+                    ln.imsi=new char(strlen(str));
+                    strcpy(ln.imsi,str);
+                   break;
+                case 2:
                     ln.number=new char(strlen(str));
                     strcpy(ln.number,str);
                     break;
-                case 2:
+                case 3:
                     ln.number_2=new char(strlen(str));
                     strcpy(ln.number_2,str);
                     break;
-                case 3:
+                case 4:
                     ln.number_3=new char[strlen(str)];
                     strcpy(ln.number_3,str);
                     break;
-                case 4:
+                case 5:
                     ln.call_duration=new char[strlen(str)];
                     strcpy(ln.call_duration,str);
                     str[j++]=*pointer;
@@ -182,21 +204,43 @@ struct file_data
 bool myfunction (file_data i,file_data j) {
     return (i.file_mtime>j.file_mtime); }
 
+void finish_prog_func(int sig){
+    PQfinish(conn);
+    exit(0);
+}
+void sig_abort_func(int sig){
+    PQfinish(conn);
+    exit(0);
+}
 int main()
 {
-    conn = PQconnectdb("dbname=steer_main host=172.18.1.82 user=postgres password=terrm1nator");
+    signal(SIGINT, finish_prog_func);
+    try{
+            conf.readFile("config.conf");
+        }
+    catch(libconfig::ParseException e){
+            std::cout << e.getError() << " line:" << e.getLine() << std::endl;
+        }
+    std::string strDir=conf.lookup("application.paths.sourceDir");
+    std::string str_trash_dir=conf.lookup("application.paths.trashDir");
+    std::string str_dbname=conf.lookup("application.dataBase.dbname");
+    std::string str_dbhost=conf.lookup("application.dataBase.host");
+    std::string str_dbuser=conf.lookup("application.dataBase.user");
+    std::string str_dbpassword=conf.lookup("application.dataBase.password");
+    std::string str_connect_to_db="dbname="+str_dbname+" host="+str_dbhost+" user="+str_dbuser+" password="+str_dbpassword;
+    conn = PQconnectdb(str_connect_to_db.c_str());
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("We were unable to connect to the database");
     }
     DIR* dir;
     struct dirent* entry;
     struct stat sb;
-    std::string strDir="./fileFolder";
     while (1) {
     vector<file_data> vdata_file;
     dir=opendir(strDir.c_str());
     if(dir==NULL){
         perror("Can not open dir");
+        return 1;
     }
     while ((entry=readdir(dir))!=NULL) {
         std::string str_file=entry->d_name;
@@ -204,9 +248,15 @@ int main()
         if(str_file!="."&&str_file!=".."){
             file_data time_name_file;
             stat((char*)str_dir_file.c_str(),&sb);
-            time_name_file.file_mtime=sb.st_mtim.tv_sec;
-            time_name_file.name=str_dir_file;
-            vdata_file.push_back(time_name_file);
+            if(S_ISREG(sb.st_mode)&&str_file.find(".csv")!=std::string::npos){
+                time_name_file.file_mtime=sb.st_mtim.tv_sec;
+                time_name_file.name=str_dir_file;
+                vdata_file.push_back(time_name_file);
+            }
+            else{
+                std::string str="mv "+str_dir_file+" "+str_trash_dir;
+                system(str.c_str());
+            }
         }
     }
     std::sort (vdata_file.begin(), vdata_file.end(), myfunction);
@@ -220,6 +270,5 @@ int main()
     closedir(dir);
     }
     PQfinish(conn);
-    PQisBusy(conn);
     return 0;
 }
