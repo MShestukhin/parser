@@ -1,0 +1,3 @@
+[submodule "modules/log"]
+	path = modules/log
+	url = git@svcgit:svc/clibs/log
