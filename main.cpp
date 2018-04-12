@@ -1,16 +1,18 @@
 #include <iostream>
 #include "main.h"
-
 src::severity_logger< severity_level > lg;
 PGconn* conn;
 Data_from_conf_file* conf_data;
 Table_conf_data* table_conf_data;
+
 //функция отправки данных в базу
 void send_to_db(std::vector<line> massln){
     PGresult* res;
     for(int i=0; i<massln.size();i++){
+        if(massln.at(i).number_2==massln.at(i).number_3){
+            massln.at(i).number_3=" ";
+        }
     const char* paramValues[7]={ (char*)massln.at(i).date,(char*)massln.at(i).imsi, (char*)massln.at(i).number,(char*)massln.at(i).number_2,(char*)massln.at(i).number_3,(char*)massln.at(i).call_duration,(char*)massln.at(i).res};
-    //std::string insert_cmd_str="INSERT INTO "+conf_data->str_dbschema+"."+conf_data->str_dbtable+" (date, imsi, number_1, number_2, number_3, duration, result) VALUES($1, $2, $3, $4, $5, $6, $7)";
     std::string insert_cmd_str="INSERT INTO "+
             conf_data->str_dbschema+"."+conf_data->str_dbtable+" ("+
             table_conf_data->timestamp+","+
@@ -19,7 +21,7 @@ void send_to_db(std::vector<line> massln){
             table_conf_data->number_2+","+
             table_conf_data->number_3+","+
             table_conf_data->duration+","+
-            table_conf_data->result+")VALUES($1, $2, $3, $4, $5, $6, $7)";
+            table_conf_data->result+") VALUES($1, $2, $3, $4, $5, $6, $7)";
     res=PQexecParams(conn,
                      insert_cmd_str.c_str(),
                      7,
@@ -30,10 +32,9 @@ void send_to_db(std::vector<line> massln){
                      1);
     if (PQresultStatus(res) != PGRES_COMMAND_OK)
     {
-        fprintf(stderr, "INSERT failed: %s", PQerrorMessage(conn));
+        printf("INSERT failed: %s", PQerrorMessage(conn));
         BOOST_LOG_SEV(lg, error) <<"INSERT failed: "<<PQerrorMessage(conn);
-        PQclear(res);
-        PQfinish(conn);
+        raise(SIGABRT);
     }
     PQclear(res);
     delete massln.at(i).date;
@@ -45,145 +46,6 @@ void send_to_db(std::vector<line> massln){
     delete massln.at(i).res;
     }
 }
-
-/*class Parser{
-private :
-    //вспомогательная функция используется для приведения значения дата к формату таймстамп
-    void transform_to_timestamp_promat(char* newNumber,char* str){
-        int j=0;
-        while (*str!='\0') {
-         newNumber[j++]=*str;
-         switch (j) {
-         case 4:
-            newNumber[j++]='-';
-             break;
-         case 7:
-             newNumber[j++]='-';
-             break;
-         case 10:
-             newNumber[j++]=' ';
-             break;
-         case 13:
-             newNumber[j++]=':';
-             break;
-         case 16:
-             newNumber[j++]=':';
-             break;
-         default:
-             break;
-         }
-         str++;
-        }
-        newNumber[j++]='\0';
-    }
-
-public :
-    Parser(){
-
-    }
-
-    int pars_file(std::string file_name){
-        FILE* file;
-        char* nameFile=(char*)file_name.c_str();
-        file=fopen(nameFile,"r");
-        if(file == NULL)
-        {
-            printf("can not open file");
-            return 2;
-        }
-        std::vector<line> massln;
-        int iter=0;
-        while(!feof(file)){
-        int i=0;
-        int j=0;
-        char buf[100];
-        fgets(buf,100,file);
-        if(strlen(buf)==0){
-            break;
-        }
-        std::string s1(buf);
-        char comma=',';
-        char delimiter;
-        std::string::size_type n = s1.find(comma);
-        if ( n != std::string::npos )
-        {
-            delimiter=comma;
-        }
-        else{
-            delimiter=';';
-        }
-        char* str;
-        str=(char*)malloc(100);
-        char* pointer=(char*)&buf;
-        line ln;
-        while(*pointer!='\0'){
-                if(*pointer!=delimiter){
-                    str[j++]=*pointer;
-                    pointer++;
-                }
-                else{
-                    str[j]='\0';
-                    j=0;
-                    pointer++;
-                    switch (i) {
-                    case 0:
-                        char* point;
-                        point=(char*)malloc(100);
-                        transform_to_timestamp_promat(point,str);
-                        ln.date=new char[strlen(point)];
-                        strcpy(ln.date,point);
-                        break;
-                    case 1:
-                        ln.imsi=new char(strlen(str));
-                        strcpy(ln.imsi,str);
-                       break;
-                    case 2:
-                        ln.number=new char(strlen(str));
-                        strcpy(ln.number,str);
-                        break;
-                    case 3:
-                        ln.number_2=new char(strlen(str));
-                        strcpy(ln.number_2,str);
-                        break;
-                    case 4:
-                        ln.number_3=new char[strlen(str)];
-                        strcpy(ln.number_3,str);
-                        break;
-                    case 5:
-                        ln.call_duration=new char[strlen(str)];
-                        strcpy(ln.call_duration,str);
-                        str[j++]=*pointer;
-                        str[j]='\0';
-                        ln.res=new char[strlen(str)];
-                        strcpy(ln.res,str);
-                        break;
-                    default:
-                        break;
-                    }
-                    i++;
-                }
-            }
-        if(i<6){
-            std::string trashDir=conf_data->str_trash_dir;
-            BOOST_LOG_SEV(lg, error) <<"Error format file \n"<<trashDir;
-            std::string str="mv "+file_name+" "+trashDir;
-            system(str.c_str());
-        }
-            massln.push_back(ln);
-            memset(buf,0,100);
-            if((massln.size()%10)==0){
-                iter=0;
-                send_to_db(massln);
-                massln.clear();
-            }
-        }
-        fclose(file);
-        if(massln.size()>0){
-            send_to_db(massln);
-        }
-        BOOST_LOG_SEV(lg, info) << "Succied write to db file "<<file_name;
-    }
-};*/
 
 //вспомогательная функция для упорядочения массива с именами файлов в порядке времени их изменения
 bool myfunction (file_data i,file_data j) {
@@ -201,6 +63,8 @@ void finish_prog_func(int sig){
 //хендлер аварийного завершения программы
 void sig_abort_func(int sig){
     PQfinish(conn);
+    std::string str="netstat -anp | grep ':5432' | awk '{print $7}' | grep -oE [[:digit:]]{1,} | xargs kill";
+    //system(str.c_str());
     BOOST_LOG_SEV(lg, fatal)<<"Program abort";
     exit(0);
 }
@@ -210,7 +74,7 @@ void init()
 {
     libconfig::Config conf;
     try{
-            conf.readFile("config.conf");
+            conf.readFile("/opt/svyazcom/etc/cdr_sca.conf");
         }
     catch(libconfig::ParseException e){
              BOOST_LOG_SEV(lg, fatal) << e.getError() << " line:" << e.getLine() << std::endl;
@@ -227,7 +91,7 @@ void init()
               conf.lookup("application.dataBase.table"),
               conf.lookup("application.dataBase.schema"));
 
-     table_conf_data=new Table_conf_data(
+   table_conf_data=new Table_conf_data(
                  conf.lookup("application.tableData.timestamp"),
                  conf.lookup("application.tableData.imsi"),
                  conf.lookup("application.tableData.number_1"),
@@ -236,9 +100,11 @@ void init()
                  conf.lookup("application.tableData.duration"),
                  conf.lookup("application.tableData.result"));
 
+     std::string log_path_str= conf.lookup("application.paths.logDir");
+
     logging::add_file_log
     (
-        keywords::file_name = "./log/logFile_%N.log",
+        keywords::file_name =log_path_str+ "/%Y-%m-%d.log",
         keywords::rotation_size = 10 * 1024,
         keywords::format =
         (
@@ -248,6 +114,16 @@ void init()
             << "> \t" << expr::smessage
         )
     );
+    boost::log::core::get()->set_filter(boost::log::trivial::severity >= 3);
+}
+
+void thread_body(){
+    std::string str_connect_to_db="dbname="+conf_data->str_dbname+" host="+conf_data->str_dbhost+" user="+conf_data->str_dbuser+" password="+conf_data->str_dbpassword;
+    conn=PQconnectdb(str_connect_to_db.c_str());
+    if (PQstatus(conn) == CONNECTION_BAD) {
+        puts("We were unable to connect to the database");
+        BOOST_LOG_SEV(lg, fatal)<<"Failed connection to the database";
+    }
 }
 
 int main()
@@ -258,19 +134,15 @@ int main()
     logging::add_common_attributes();
     BOOST_LOG_SEV(lg, info) << "Begin program";
     //подключение к базе
-    std::string str_connect_to_db="dbname="+conf_data->str_dbname+" host="+conf_data->str_dbhost+" user="+conf_data->str_dbuser+" password="+conf_data->str_dbpassword;
-    conn = PQconnectdb(str_connect_to_db.c_str());
-    if (PQstatus(conn) == CONNECTION_BAD) {
-        puts("We were unable to connect to the database");
-        BOOST_LOG_SEV(lg, fatal)<<"Failed connection to the database";
-        return 1;
-    }
+    boost::thread thread(&thread_body);
+    thread.join();
     //начало работы с диррикториями
     DIR* dir;
     struct dirent* entry;
     struct stat sb;
     //начало цикла проверки наличия файлов в папке
     while (1) {
+    sleep(1);
     vector<file_data> vdata_file;
     dir=opendir(conf_data->str_dir.c_str());
     if(dir==NULL){
@@ -286,21 +158,30 @@ int main()
         if(str_file!="."&&str_file!=".."){
             file_data time_name_file;
             stat((char*)str_dir_file.c_str(),&sb);
-            //если в папке есть файлы расширения .csv заносим в буфер
-            if(S_ISREG(sb.st_mode)&&str_file.find(".csv")!=std::string::npos){
+            //если в папке есть файлы расширения .cdr заносим в буфер
+            if(S_ISREG(sb.st_mode)){
+                size_t pos=str_file.rfind(".");
+                std::string ext=str_file.substr(pos, string::npos);
+                if(ext==".cdr"){
                 time_name_file.file_mtime=sb.st_mtim.tv_sec;
                 time_name_file.name=str_dir_file;
                 vdata_file.push_back(time_name_file);
+                }
+                else{
+                    BOOST_LOG_SEV(lg, warning) << str_dir_file<<" droped because of : not .cdr file ";
+                    std::string str="mv "+str_dir_file+" "+conf_data->str_trash_dir+" -f";
+                    system(str.c_str());
+                }
             }
             //в противном случае переносим в папку для мусора и файлы и папки
             else{
-                BOOST_LOG_SEV(lg, warning) << str_dir_file<<" droped because of : not .csv file ";
+                BOOST_LOG_SEV(lg, warning) << str_dir_file<<" droped because of : it is a folder ";
                 std::string str="mv "+str_dir_file+" "+conf_data->str_trash_dir+" -f";
                 system(str.c_str());
             }
         }
     }
-    //сортируем в порядке времени изминения файла
+    //сортируем в порядке времени изменения файла
     std::sort (vdata_file.begin(), vdata_file.end(), myfunction);
     //отправляем парсеру найденые файлы с расширением .csv
     for(int i=0;i<vdata_file.size();i++){

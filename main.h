@@ -23,6 +23,7 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/keywords/format.hpp>
 #include <boost/log/support/date_time.hpp>
+#include <boost/thread.hpp>
 #include "structs.h"
 #include "parser.h"
 namespace logging = boost::log;
@@ -38,5 +39,6 @@ bool myfunction (file_data i,file_data j);
 void finish_prog_func(int sig);
 void sig_abort_func(int sig);
 void init();
+void thread_body();
 int main();
 #endif // MAIN_H

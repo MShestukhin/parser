@@ -41,6 +41,8 @@ int parser::pars_file(std::string file_name){
         printf("Can not open file");
         return 1;
     }
+    char buf[100];
+    fgets(buf,100,file);
     std::vector<line> massln;
     int iter=0;
     while(!feof(file)){

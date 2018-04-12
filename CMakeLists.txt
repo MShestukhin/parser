@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 SET(CMAKE_CXX_FLAGS "-lrt")
 
-project(pars)
+project(cdr_sca)
 
 add_executable(${PROJECT_NAME} "main.cpp")
 
@@ -21,7 +21,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 add_library(parser STATIC  ./parser.cpp)
 
-target_link_libraries(pars ${Boost_LIBRARIES})
-target_link_libraries(pars libconfig)
-target_link_libraries(pars libpq)
-target_link_libraries(pars parser)
+target_link_libraries(cdr_sca ${Boost_LIBRARIES})
+target_link_libraries(cdr_sca libconfig)
+target_link_libraries(cdr_sca libpq)
+target_link_libraries(cdr_sca parser)
