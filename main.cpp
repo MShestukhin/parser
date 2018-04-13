@@ -9,10 +9,23 @@ Table_conf_data* table_conf_data;
 void send_to_db(std::vector<line> massln){
     PGresult* res;
     for(int i=0; i<massln.size();i++){
-        if(massln.at(i).number_2==massln.at(i).number_3){
+        std::string num2=massln.at(i).number_2;
+        std::string num3=massln.at(i).number_3;
+        size_t pos_num2=num2.rfind(".");
+        size_t pos_num3=num3.rfind(".");
+        std::string num2_for_spacing=num2.substr(pos_num2,string::npos);
+        std::string num3_for_spacing=num3.substr(pos_num3,string::npos);
+        if(num2_for_spacing==num3_for_spacing){
             massln.at(i).number_3=" ";
+            massln.at(i).resKey=" ";
         }
-    const char* paramValues[7]={ (char*)massln.at(i).date,(char*)massln.at(i).imsi, (char*)massln.at(i).number,(char*)massln.at(i).number_2,(char*)massln.at(i).number_3,(char*)massln.at(i).call_duration,(char*)massln.at(i).res};
+    const char* paramValues[8]={ (char*)massln.at(i).date,
+                                 (char*)massln.at(i).imsi,
+                                 (char*)massln.at(i).number,
+                                 (char*)massln.at(i).number_2,
+                                 (char*)massln.at(i).number_3,
+                                 (char*)massln.at(i).call_duration,
+                                 (char*)massln.at(i).res, massln.at(i).resKey};
     std::string insert_cmd_str="INSERT INTO "+
             conf_data->str_dbschema+"."+conf_data->str_dbtable+" ("+
             table_conf_data->timestamp+","+
@@ -21,10 +34,11 @@ void send_to_db(std::vector<line> massln){
             table_conf_data->number_2+","+
             table_conf_data->number_3+","+
             table_conf_data->duration+","+
-            table_conf_data->result+") VALUES($1, $2, $3, $4, $5, $6, $7)";
+            table_conf_data->result+","+
+            table_conf_data->result_key+") VALUES($1, $2, $3, $4, $5, $6, $7,$8)";
     res=PQexecParams(conn,
                      insert_cmd_str.c_str(),
-                     7,
+                     8,
                      NULL,
                      paramValues,
                      NULL,
@@ -98,7 +112,8 @@ void init()
                  conf.lookup("application.tableData.number_2"),
                  conf.lookup("application.tableData.number_3"),
                  conf.lookup("application.tableData.duration"),
-                 conf.lookup("application.tableData.result"));
+                 conf.lookup("application.tableData.result"),
+                 conf.lookup("application.tableData.resultKey"));
 
      std::string log_path_str= conf.lookup("application.paths.logDir");
 
@@ -167,23 +182,23 @@ int main()
                 time_name_file.name=str_dir_file;
                 vdata_file.push_back(time_name_file);
                 }
-                else{
+                /*else{
                     BOOST_LOG_SEV(lg, warning) << str_dir_file<<" droped because of : not .cdr file ";
                     std::string str="mv "+str_dir_file+" "+conf_data->str_trash_dir+" -f";
                     system(str.c_str());
-                }
+                }*/
             }
             //в противном случае переносим в папку для мусора и файлы и папки
-            else{
+            /*else{
                 BOOST_LOG_SEV(lg, warning) << str_dir_file<<" droped because of : it is a folder ";
                 std::string str="mv "+str_dir_file+" "+conf_data->str_trash_dir+" -f";
                 system(str.c_str());
-            }
+            }*/
         }
     }
     //сортируем в порядке времени изменения файла
     std::sort (vdata_file.begin(), vdata_file.end(), myfunction);
-    //отправляем парсеру найденые файлы с расширением .csv
+    //отправляем парсеру найденые файлы с расширением .cdr
     for(int i=0;i<vdata_file.size();i++){
         std::string file_name= vdata_file.at(i).name;
         cout<<file_name;

@@ -104,8 +104,8 @@ int parser::pars_file(std::string file_name){
                 case 5:
                     ln.call_duration=new char[strlen(str)];
                     strcpy(ln.call_duration,str);
-                    str[j++]=*pointer;
-                    str[j]='\0';
+                    break;
+                case 6:
                     ln.res=new char[strlen(str)];
                     strcpy(ln.res,str);
                     break;
@@ -115,7 +115,10 @@ int parser::pars_file(std::string file_name){
                 i++;
             }
         }
-    if(i<6){
+    str[j-1]='\0';
+    ln.resKey=new char[strlen(str)];
+    strcpy(ln.resKey,str);
+    if(i<7){
         return 2;
     }
         massln.push_back(ln);

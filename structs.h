@@ -11,6 +11,7 @@ struct line
     char* number_3;
     char* call_duration;
     char* res;
+    char* resKey;
     line() {
         date="";
         imsi="";
@@ -19,6 +20,7 @@ struct line
         number_3="";
         call_duration="";
         res="";
+        resKey="";
     }
 };
 
@@ -74,13 +76,15 @@ struct Table_conf_data{
     std::string number_3;
     std::string duration;
     std::string result;
+    std::string result_key;
     Table_conf_data(std::string time,
                     std::string ims,
                     std::string num1,
                     std::string num2,
                     std::string num3,
                     std::string dur,
-                    std::string res){
+                    std::string res,
+                    std::string key){
         timestamp=time;
         imsi=ims;
         number_1=num1;
@@ -88,6 +92,7 @@ struct Table_conf_data{
         number_3=num3;
         duration=dur;
         result=res;
+        result_key=key;
     }
 };
 
