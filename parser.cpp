@@ -68,6 +68,27 @@ int parser::pars_file(std::string file_name){
     str=(char*)malloc(100);
     char* pointer=(char*)&buf;
     line ln;
+        /*    vector<vector<std::string>> mass_ln;
+    vector<std::string> data_ln;
+    std::string fileName="20180405142432;2_file;79834077832;79500539520;9834077821";
+    char* pointer=(char*)fileName.c_str();
+    char* pointerBegin=pointer;
+    int i=0;
+    int end=0;
+    while(i<fileName.size()){
+        //std::cout<<fileName.at(i)<<"\n";
+        if(fileName.at(i)==';'){
+            std::string str=fileName.substr(end,i-end);
+            data_ln.push_back(str);
+            end=i+1;
+        }
+        i++;
+    }
+    std::string str=fileName.substr(end,i-end);
+    data_ln.push_back(str);
+    std::string str_tr=data_ln.at(0);
+    std::string timestamp=str_tr.substr(0,4)+"-"+str_tr.substr(4,2)+"-"+str_tr.substr(6,2)+" "+str_tr.substr(8,2)+":"+str_tr.substr(10,2)+":"+str_tr.substr(12,2);
+    std::cout<<timestamp;*/
     while(*pointer!='\0'){
             if(*pointer!=delimiter){
                 str[j++]=*pointer;
