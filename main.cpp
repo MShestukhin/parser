@@ -9,13 +9,7 @@ Table_conf_data* table_conf_data;
 void send_to_db(std::vector<line> massln){
     PGresult* res;
     for(int i=0; i<massln.size();i++){
-        std::string num2=massln.at(i).number_2;
-        std::string num3=massln.at(i).number_3;
-        size_t pos_num2=num2.rfind(".");
-        size_t pos_num3=num3.rfind(".");
-        std::string num2_for_spacing=num2.substr(pos_num2,string::npos);
-        std::string num3_for_spacing=num3.substr(pos_num3,string::npos);
-        if(num2_for_spacing==num3_for_spacing){
+        if(massln.at(i).number_2==massln.at(i).number_3){
             massln.at(i).number_3=" ";
             massln.at(i).resKey=" ";
         }
@@ -120,7 +114,8 @@ void init()
     logging::add_file_log
     (
         keywords::file_name =log_path_str+ "/%Y-%m-%d.log",
-        keywords::rotation_size = 10 * 1024,
+                keywords::auto_flush = true ,
+        keywords::time_based_rotation = sinks::file::rotation_at_time_point(12, 0, 0),
         keywords::format =
         (
             expr::stream
@@ -129,7 +124,7 @@ void init()
             << "> \t" << expr::smessage
         )
     );
-    boost::log::core::get()->set_filter(boost::log::trivial::severity >= 3);
+
 }
 
 void thread_body(){
@@ -204,8 +199,15 @@ int main()
         cout<<file_name;
         BOOST_LOG_SEV(lg, info) << "Read file "<<file_name;
         parser Parser;
-        int pars_res=Parser.pars_file(file_name);
-        std::string str;
+        vector<vector<std::string> > rows=Parser.pars_file(file_name,7,2);
+        if(rows.size()!=0){
+            Parser.transform_to_timestamp_promat(&rows,0);
+        }
+        else if(Parser.mass_broken_ln->size()>0){
+            //заносим битые строки в файл и отправляем его в корзину, пишем результат в лог
+        }
+
+        /*std::string str;
         switch (pars_res){
         case 0:
             BOOST_LOG_SEV(lg, info)<<file_name<<" successfully write to database";
@@ -221,8 +223,8 @@ int main()
             break;
         default:
             break;
-        }
-       system(str.c_str());
+        }*/
+       //system(str.c_str());
     }
     closedir(dir);
     }

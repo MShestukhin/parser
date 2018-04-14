@@ -27,13 +27,13 @@
 #include "structs.h"
 #include "parser.h"
 namespace logging = boost::log;
-namespace src = boost::log::sources;
 namespace sinks = boost::log::sinks;
-namespace keywords = boost::log::keywords;
-using namespace std;
 namespace src = boost::log::sources;
-namespace expr=boost::log::expressions;
+namespace expr = boost::log::expressions;
+namespace attrs = boost::log::attributes;
+namespace keywords = boost::log::keywords;
 using namespace logging::trivial;
+using namespace std;
 void send_to_db(std::vector<line> massln);
 bool myfunction (file_data i,file_data j);
 void finish_prog_func(int sig);
