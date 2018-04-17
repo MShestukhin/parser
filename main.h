@@ -34,11 +34,12 @@ namespace attrs = boost::log::attributes;
 namespace keywords = boost::log::keywords;
 using namespace logging::trivial;
 using namespace std;
-void send_to_db(std::vector<line> massln);
+void INSERT(std::string insert_cmd_str,  const char paramValues[]);
+void prepare_query_and_insert(vector<vector<std::string> > massln, std::string table_name, vector<string> *table_field);
 bool myfunction (file_data i,file_data j);
 void finish_prog_func(int sig);
 void sig_abort_func(int sig);
 void init();
-void thread_body();
+void CONNECT();
 int main();
 #endif // MAIN_H

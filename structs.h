@@ -44,6 +44,7 @@ struct Data_from_conf_file{
     std::string str_dbpassword;
     std::string str_dbtable;
     std::string str_dbschema;
+    std::string str_db_for_files_table;
     Data_from_conf_file(
               std::string str,
               std::string trash,
@@ -53,7 +54,8 @@ struct Data_from_conf_file{
               std::string dbuser,
               std::string dbpassword,
               std::string dbtable,
-              std::string dbschema
+              std::string dbschema,
+              std::string dbFFtable
               )
     {
     str_dir=str;
@@ -65,6 +67,7 @@ struct Data_from_conf_file{
     str_dbpassword=dbpassword;
     str_dbtable=dbtable;
     str_dbschema=dbschema;
+    str_db_for_files_table=dbFFtable;
     };
 };
 
