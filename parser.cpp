@@ -56,10 +56,12 @@ vector<vector<std::string> > parser::pars_file(std::string fileName, int data_nu
                 j++;
             }
             if(s1.at(i)=='\x0D') {};
-            if(s1.at(i)=='\x0A') i=i+1;
-            i++;
+            if(s1.at(i)!='\x0A') i=i+1;
+            else break;
         }
-        s1=s1.substr(end,2);
+        std::cout<<i<<"\n";
+        std::cout<<end<<"\n";
+        s1=s1.substr(end,i-end);
         row.push_back(s1);
         if(j!=data_num-1){
             mass_broken_ln.push_back(s1);
