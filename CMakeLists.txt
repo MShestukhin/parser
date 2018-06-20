@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
-SET(CMAKE_CXX_FLAGS "-lrt")
 
-project(cdr_sca)
+
+project(cdr_sca C CXX)
+
+SET(CMAKE_CXX_FLAGS "-lrt")
 
 add_executable(${PROJECT_NAME} "main.cpp")
 

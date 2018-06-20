@@ -4,7 +4,6 @@
 #include <string.h>
 #include </usr/local/pgsql/include/libpq-fe.h>
 #include <vector>
-#include <dirent.h>]
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
