@@ -1,0 +1,34 @@
+﻿2018-09-13 14:51:12.459 INFO  [25239] [Worker_cnora::Worker_cnora@37] Coren ready to work
+2018-09-13 14:51:17.463 INFO  [25240] [transport_file@64] File detected ./cdr/camel_1527843990.cdr
+2018-09-13 14:51:17.463 INFO  [25240] [transport_file@71] mv ./cdr/camel_1527843990.cdr ./upload/camel_1527843990.cdr -f
+2018-09-13 14:51:17.469 INFO  [25240] [mainThread@88] Begin work with ./upload/camel_1527843990.cdr
+2018-09-13 14:51:17.469 INFO  [25240] [mainThread@91] 2 lines to load into the database
+2018-09-13 14:51:17.469 INFO  [25240] [Worker_cnora::multiple_insertDb@120] Success edit to database
+2018-09-13 14:51:17.469 INFO  [25240] [transport_file@64] File detected ./upload/camel_1527843990.cdr
+2018-09-13 14:51:17.469 INFO  [25240] [transport_file@71] mv ./upload/camel_1527843990.cdr ./done/done_camel_1527843990.cdr -f
+2018-09-13 15:04:24.528 ERROR [25239] [on_signal@73] Got signal 2:Interrupt
+2018-09-13 15:12:11.782 INFO  [26702] [Worker_cnora::Worker_cnora@37] Coren ready to work
+2018-09-13 15:12:31.783 INFO  [26703] [transport_file@64] File detected ./cdr/camel_1527843990.cdr
+2018-09-13 15:12:31.783 INFO  [26703] [transport_file@71] mv ./cdr/camel_1527843990.cdr ./upload/camel_1527843990.cdr -f
+2018-09-13 15:12:31.788 INFO  [26703] [mainThread@88] Begin work with ./upload/camel_1527843990.cdr
+2018-09-13 15:12:31.788 INFO  [26703] [mainThread@91] 2 lines to load into the database
+2018-09-13 15:12:31.788 INFO  [26703] [Worker_cnora::multiple_insertDb@120] Success edit to database
+2018-09-13 15:12:31.788 INFO  [26703] [transport_file@64] File detected ./upload/camel_1527843990.cdr
+2018-09-13 15:12:31.788 INFO  [26703] [transport_file@71] mv ./upload/camel_1527843990.cdr ./done/done_camel_1527843990.cdr -f
+2018-09-13 15:12:49.710 ERROR [26702] [on_signal@73] Got signal 2:Interrupt
+2018-09-13 15:29:59.113 INFO  [28211] [Worker_cnora::Worker_cnora@37] Coren ready to work
+2018-09-13 15:30:14.115 INFO  [28212] [transport_file@64] File detected ./cdr/camel_1527843990.cdr
+2018-09-13 15:30:14.115 INFO  [28212] [transport_file@71] mv ./cdr/camel_1527843990.cdr ./upload/camel_1527843990.cdr -f
+2018-09-13 15:30:14.123 INFO  [28212] [mainThread@88] Begin work with ./upload/camel_1527843990.cdr
+2018-09-13 15:30:14.123 INFO  [28212] [mainThread@91] 2 lines to load into the database
+2018-09-13 15:30:14.123 INFO  [28212] [Worker_cnora::multiple_insertDb@120] Success edit to database
+2018-09-13 15:30:14.124 INFO  [28212] [transport_file@64] File detected ./upload/camel_1527843990.cdr
+2018-09-13 15:30:14.124 INFO  [28212] [transport_file@71] mv ./upload/camel_1527843990.cdr ./done/done_camel_1527843990.cdr -f
+2018-09-13 15:32:09.134 INFO  [28212] [transport_file@64] File detected ./cdr/camel_1527843990.cdr
+2018-09-13 15:32:09.134 INFO  [28212] [transport_file@71] mv ./cdr/camel_1527843990.cdr ./upload/camel_1527843990.cdr -f
+2018-09-13 15:32:09.138 INFO  [28212] [mainThread@88] Begin work with ./upload/camel_1527843990.cdr
+2018-09-13 15:32:09.138 INFO  [28212] [mainThread@91] 2 lines to load into the database
+2018-09-13 15:32:09.138 INFO  [28212] [Worker_cnora::multiple_insertDb@120] Success edit to database
+2018-09-13 15:32:09.138 INFO  [28212] [transport_file@64] File detected ./upload/camel_1527843990.cdr
+2018-09-13 15:32:09.138 INFO  [28212] [transport_file@71] mv ./upload/camel_1527843990.cdr ./done/done_camel_1527843990.cdr -f
+2018-09-13 15:32:13.731 ERROR [28211] [on_signal@73] Got signal 2:Interrupt

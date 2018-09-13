@@ -1,6 +1,6 @@
 #include "worker_cnora.h"
 #include <iostream>
-
+#include <plog/Log.h>
 CoreN::InterfacePtr getCoreN(boost::asio::io_service& ios)
 {
     const std::string& unix_socket_name = "/opt/svyazcom/var/run/coren.sock";
@@ -34,7 +34,7 @@ Worker_cnora::Worker_cnora(boost::asio::io_service& io)
 {
     I = getCoreN(io);
     rebind(I->on_connect, [](const boost::function<void()>& handler){
-        log_info("Coren ready to work");
+        LOGI<<"Coren ready to work";
         handler();
     });
 }
@@ -45,7 +45,7 @@ void Worker_cnora::stop(){
             CoreN::Service::Role /*role*/,
             const boost::shared_ptr<CoreN::Service::Address>& /*master*/
         ){
-            log_info("Service UnRegistered " << error);
+            LOGI<<"Service UnRegistered " << error;
         });
 }
 
@@ -76,14 +76,14 @@ void Worker_cnora::insertDb(vector<vector<string>> data_ln, string db_schema, st
                 [](const CoreN::CNora::Rows& ) {},
                 [](const CoreN::Error& error){
                     if(error!=0)
-                        std::cout << "Request status: " << error << std::endl;
+                        LOGE<< "Request status: " << error << std::endl;
                 } // Method on request finish
         );
         v.clear();
     };
 }
 
-void Worker_cnora::multiple_insertDb(vector<vector<string>> data_ln, string db_schema, string db_table, vector<string> table_name, vector<string> table_type){
+int Worker_cnora::multiple_insertDb(vector<vector<string>> data_ln, string db_schema, string db_table, vector<string> table_name, vector<string> table_type){
         const CoreN::CNoraPtr& cnora=getCNora(I);
         CoreN::CNora::Values v;
         std::string insert_begin="INSERT INTO "+db_schema+"."+db_table+" (";
@@ -99,14 +99,12 @@ void Worker_cnora::multiple_insertDb(vector<vector<string>> data_ln, string db_s
         for(auto  row : data_ln){
             string value="(";
             int n=row.size()-1;
-            std::cout<<n;
             for(int i=0;i<n;i++){
                 value+="'"+row.at(i)+"'"+table_type.at(i)+",";
             }
             insert_end+=value+row.at(n)+table_type.at(n)+"),";
         }
         insert_end=insert_end.erase(insert_end.size()-1,1);
-        std::cout<<"\n"<<insert_begin+insert_end<<"\n";
         cnora->Request(
             insert_begin+insert_end, // SQL
             v, // Binded params
@@ -114,8 +112,9 @@ void Worker_cnora::multiple_insertDb(vector<vector<string>> data_ln, string db_s
                 [](const CoreN::CNora::Rows& ) {},
                 [](const CoreN::Error& error){
                     if(error!=0)
-                        log_error("Request status: " + error);
-                        //std::cout << "Request status: " << error << std::endl;
+                        LOGE << "Request status: " << error << std::endl;
+                    else
+                        LOGI<<"Success edit to database";
                 } // Method on request finish
         );
         v.clear();

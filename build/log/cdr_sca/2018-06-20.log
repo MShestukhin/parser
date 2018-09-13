@@ -1,5 +1,0 @@
-2018-06-20 12:45:18	: <info> 	Begin program
-2018-06-20 12:45:23	: <info> 	Read file ./cdr/camel_1527843990.cdr
-2018-06-20 12:45:23	: <info> 	./cdr/camel_1527843990.cdr successfully write to database
-2018-06-20 12:45:23	: <info> 	mv ./cdr/camel_1527843990.cdr ./done
-2018-06-20 12:45:56	: <info> 	Program finish

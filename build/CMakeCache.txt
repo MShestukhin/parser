@@ -334,6 +334,12 @@ coren_protocol_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/coren_cpp/protocol
 //Build library with UTC date/time logging
 lib_utc_datetime:BOOL=OFF
 
+//Value Computed by CMake
+plog_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/plog
+
+//Value Computed by CMake
+plog_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/plog
+
 //Build all tests
 test:BOOL=OFF
 
@@ -490,7 +496,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

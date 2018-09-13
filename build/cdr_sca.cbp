@@ -5,7 +5,7 @@
 		<Option title="cdr_sca"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
@@ -34,6 +34,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/opt/svyazcom/cdr_sca/plog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/cnora_cpp/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol"/>
 					<Add directory="/opt/svyazcom/cdr_sca/coren_cpp/include"/>
@@ -62,6 +63,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/opt/svyazcom/cdr_sca/plog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/cnora_cpp/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol"/>
 					<Add directory="/opt/svyazcom/cdr_sca/coren_cpp/include"/>
@@ -860,6 +862,9 @@
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/plog/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\plog\"/>
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/cnora_cpp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\cnora_cpp\"/>

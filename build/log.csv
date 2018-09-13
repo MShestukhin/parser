@@ -1,0 +1,4 @@
+﻿Date;Time;Severity;TID;This;Function;Message
+2018/09/13;10:09:25.646;WARN;15625;0;main@91;"warning"
+2018/09/13;10:09:25.646;ERROR;15625;0;main@92;"error"
+2018/09/13;10:09:25.646;FATAL;15625;0;main@93;"fatal"

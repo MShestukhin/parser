@@ -9,6 +9,7 @@
 #include <boost/thread.hpp>
 #include "CNora.h"
 #include "worker_cnora.h"
+#include <plog/Log.h>
 using boost::property_tree::ptree;
 using namespace std;
 string from_pth;
@@ -21,11 +22,20 @@ string db_table;
 vector<string> table_name;
 vector<string> table_type;
 
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
+    return buf;
+}
+
 void init(){
     std::ifstream file;
     file.open("/opt/svyazcom/etc/cdr.conf");
     if(!file.is_open())
-        log_error("Error open config file");
+        LOGE<<"Error open config file";
     ptree pt;
     try {
         read_json(file, pt);
@@ -44,10 +54,12 @@ void init(){
         db_table=pt.get<string>("dataBase.table");
 
     } catch (boost::property_tree::json_parser::json_parser_error &je) {
-        log_error( "Error parsing: " << je.filename() << " on line: " << je.line());
-        log_error( je.message());
+        LOGE<< "Error parsing: " << je.filename() << " on line: " << je.line();
+        LOGE<< je.message();
     }
     file.close();
+    string fileLogName=log_pth+"/"+currentDateTime()+".log";
+    plog::init(plog::debug, fileLogName.c_str(), 1300000, 10);
 }
 
 boost::asio::io_service io;
@@ -56,22 +68,27 @@ Worker_cnora cnora(io);
 void on_signal(const boost::system::error_code& error, int signal_number)
 {
     if (error) {
-        log_error("Signal with error :"<<error.message());
+        LOGE<<"Signal with error :"<<error.message();
     }
-    log_info("Got signal "<<signal_number<<":"<<strsignal(signal_number));
+    LOGE<<"Got signal "<<signal_number<<":"<<strsignal(signal_number);
     cnora.stop();
 }
 
 void mainThread(){
+    string date=currentDateTime();
     while(1){
+        if(date!=currentDateTime())
+            init();
         sleep(5);
         string format="";
         transport_file(format,from_pth,work_pth,src_fl,contains);
         vector<Working_file> upload_file=file_lookup(work_pth,src_fl,contains);
         for(auto ff : upload_file){
             string file_name=ff.name;
+            LOGI<<"Begin work with "<<file_name;
             parser Parser;
             vector<vector<std::string> > rows=Parser.pars_file(file_name,table_name.size(),2);
+            LOGI<<rows.size()<<" lines to load into the database";
             Parser.transform_to_timestamp_promat(&rows,0);
             cnora.multiple_insertDb(rows,db_schema,db_table,table_name,table_type);
             string format="done_";
@@ -92,8 +109,8 @@ int main()
     io.run(error);
     thread.join();
     if (error) {
-        log_error("ios.run() error: " << error.message());
+        LOGE<<"ios.run() error: " << error.message();
     }
-    log_debug("ios thread terminated");
+    LOGE<<"ios thread terminated";
     return 0;
 }

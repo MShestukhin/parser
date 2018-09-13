@@ -17,7 +17,7 @@ public:
     Worker_cnora(boost::asio::io_service& io);
     void stop();
     void insertDb(vector<vector<string>> data_ln, string db_schema, string db_table, vector<string> table_name, vector<string> table_type);
-    void multiple_insertDb(vector<vector<string>> data_ln, string db_schema, string db_table, vector<string> table_name, vector<string> table_type);
+    int multiple_insertDb(vector<vector<string>> data_ln, string db_schema, string db_table, vector<string> table_name, vector<string> table_type);
 };
 
 #endif // WORKER_CNORA_H

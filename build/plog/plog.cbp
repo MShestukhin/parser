@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="plog"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build/plog"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/plog/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/plog/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/plog/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/plog/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/opt/svyazcom/cdr_sca/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/plog/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\plog\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/cnora_cpp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cnora_cpp\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/cnora_cpp/protocol/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cnora_cpp\protocol\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/coren_cpp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\coren_cpp\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/coren_cpp/protocol/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\coren_cpp\protocol\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

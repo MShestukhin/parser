@@ -1,6 +1,8 @@
 /opt/svyazcom/cdr_sca/build/CMakeFiles/rebuild_cache.dir
 /opt/svyazcom/cdr_sca/build/CMakeFiles/cdr_sca.dir
 /opt/svyazcom/cdr_sca/build/CMakeFiles/edit_cache.dir
+/opt/svyazcom/cdr_sca/build/plog/CMakeFiles/rebuild_cache.dir
+/opt/svyazcom/cdr_sca/build/plog/CMakeFiles/edit_cache.dir
 /opt/svyazcom/cdr_sca/build/cnora_cpp/CMakeFiles/rebuild_cache.dir
 /opt/svyazcom/cdr_sca/build/cnora_cpp/CMakeFiles/cnora_service.dir
 /opt/svyazcom/cdr_sca/build/cnora_cpp/CMakeFiles/edit_cache.dir
