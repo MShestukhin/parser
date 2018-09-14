@@ -1,0 +1,66 @@
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX14 failed with the following output:
+Change Dir: /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_2f792/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_2f792.dir/build.make CMakeFiles/cmTC_2f792.dir/build
+gmake[1]: Entering directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_2f792.dir/src.cxx.o
+/usr/bin/c++    -lrt -DCOMPILER_SUPPORTS_CXX14   -std=c++14 -o CMakeFiles/cmTC_2f792.dir/src.cxx.o -c /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-std=c++14'
+gmake[1]: *** [CMakeFiles/cmTC_2f792.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+gmake: *** [cmTC_2f792/fast] Error 2
+
+Source file was:
+int main() { return 0; }
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_90d35/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_90d35.dir/build.make CMakeFiles/cmTC_90d35.dir/build
+gmake[1]: Entering directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_90d35.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -lrt -std=c++11    -o CMakeFiles/cmTC_90d35.dir/CheckSymbolExists.cxx.o -c /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Linking CXX executable cmTC_90d35
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_90d35.dir/link.txt --verbose=1
+/usr/bin/c++  -lrt -std=c++11     -rdynamic CMakeFiles/cmTC_90d35.dir/CheckSymbolExists.cxx.o  -o cmTC_90d35 
+/usr/bin/ld: CMakeFiles/cmTC_90d35.dir/CheckSymbolExists.cxx.o: undefined reference to symbol 'pthread_create@@GLIBC_2.2.5'
+//usr/lib64/libpthread.so.0: error adding symbols: DSO missing from command line
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [cmTC_90d35] Error 1
+gmake[1]: Leaving directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+gmake: *** [cmTC_90d35/fast] Error 2
+
+File /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_852e9/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_852e9.dir/build.make CMakeFiles/cmTC_852e9.dir/build
+gmake[1]: Entering directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_852e9.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -lrt -std=c++11 -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_852e9.dir/CheckFunctionExists.cxx.o -c /opt/svyazcom/centos_cdr_build/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_852e9
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_852e9.dir/link.txt --verbose=1
+/usr/bin/c++  -lrt -std=c++11 -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_852e9.dir/CheckFunctionExists.cxx.o  -o cmTC_852e9 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [cmTC_852e9] Error 1
+gmake[1]: Leaving directory `/opt/svyazcom/centos_cdr_build/CMakeFiles/CMakeTmp'
+gmake: *** [cmTC_852e9/fast] Error 2
+
+

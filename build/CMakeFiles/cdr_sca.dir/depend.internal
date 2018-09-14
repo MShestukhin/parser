@@ -23,6 +23,28 @@ CMakeFiles/cdr_sca.dir/main.cpp.o
  ../plog/include/plog/Severity.h
  ../plog/include/plog/Util.h
  ../plog/include/plog/WinApi.h
+ ../spdlog/include/spdlog/common.h
+ ../spdlog/include/spdlog/details/file_helper.h
+ ../spdlog/include/spdlog/details/fmt_helper.h
+ ../spdlog/include/spdlog/details/log_msg.h
+ ../spdlog/include/spdlog/details/logger_impl.h
+ ../spdlog/include/spdlog/details/null_mutex.h
+ ../spdlog/include/spdlog/details/os.h
+ ../spdlog/include/spdlog/details/pattern_formatter.h
+ ../spdlog/include/spdlog/details/periodic_worker.h
+ ../spdlog/include/spdlog/details/registry.h
+ ../spdlog/include/spdlog/fmt/bundled/core.h
+ ../spdlog/include/spdlog/fmt/bundled/format-inl.h
+ ../spdlog/include/spdlog/fmt/bundled/format.h
+ ../spdlog/include/spdlog/fmt/fmt.h
+ ../spdlog/include/spdlog/formatter.h
+ ../spdlog/include/spdlog/logger.h
+ ../spdlog/include/spdlog/sinks/base_sink.h
+ ../spdlog/include/spdlog/sinks/daily_file_sink.h
+ ../spdlog/include/spdlog/sinks/sink.h
+ ../spdlog/include/spdlog/spdlog.h
+ ../spdlog/include/spdlog/tweakme.h
+ ../spdlog/include/spdlog/version.h
  /opt/svyazcom/cdr_sca/main.cpp
  /opt/svyazcom/cdr_sca/parser.h
  /opt/svyazcom/cdr_sca/worker_cnora.h

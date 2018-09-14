@@ -10,6 +10,8 @@
 #include "CNora.h"
 #include "worker_cnora.h"
 #include <plog/Log.h>
+#include <spdlog/spdlog.h>
+#include "spdlog/sinks/daily_file_sink.h"
 using boost::property_tree::ptree;
 using namespace std;
 string from_pth;
@@ -27,7 +29,7 @@ const std::string currentDateTime() {
     struct tm  tstruct;
     char       buf[80];
     tstruct = *localtime(&now);
-    strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
+    strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S, %A", &tstruct);
     return buf;
 }
 
@@ -60,6 +62,19 @@ void init(){
     file.close();
     string fileLogName=log_pth+"/"+currentDateTime()+".log";
     plog::init(plog::debug, fileLogName.c_str(), 1300000, 10);
+//    try
+//        {
+//            auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(log_pth, 23, 59);
+//            daily_sink->set_level(spdlog::level::trace);
+//            spdlog::logger logger("multi_sink", {daily_sink});
+//            logger.set_level(spdlog::level::trace);
+//            logger.warn("this should appear in both console and file");
+//            logger.info("this message should not appear in the console, only in the file");
+//        }
+//        catch (const spdlog::spdlog_ex& ex)
+//        {
+//            std::cout << "Log initialization failed: " << ex.what() << std::endl;
+//        }
 }
 
 boost::asio::io_service io;
@@ -77,9 +92,9 @@ void on_signal(const boost::system::error_code& error, int signal_number)
 void mainThread(){
     string date=currentDateTime();
     while(1){
-        if(date!=currentDateTime())
-            init();
         sleep(5);
+        string fileLogName=log_pth+"/"+currentDateTime()+".log";
+        plog::init(plog::info, fileLogName.c_str(), 1300000, 10);
         string format="";
         transport_file(format,from_pth,work_pth,src_fl,contains);
         vector<Working_file> upload_file=file_lookup(work_pth,src_fl,contains);

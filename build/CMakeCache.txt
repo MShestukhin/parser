@@ -14,8 +14,23 @@
 # EXTERNAL cache entries
 ########################
 
+//Fatal (fatal-crashes/contract) examples 
+ADD_FATAL_EXAMPLE:BOOL=ON
+
+//g3log performance test
+ADD_G3LOG_PERFORMANCE:BOOL=OFF
+
+//g3log unit tests
+ADD_G3LOG_UNIT_TEST:BOOL=OFF
+
 //Path to a program.
 ASN1C_PATH:FILEPATH=/usr/local/bin/asn1c
+
+//Build the testing tree.
+BUILD_TESTING:BOOL=ON
+
+//Path to a program.
+BZRCOMMAND:FILEPATH=BZRCOMMAND-NOTFOUND
 
 //Boost atomic library (debug)
 Boost_ATOMIC_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_atomic.a
@@ -77,12 +92,15 @@ Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.a
 //Boost thread library (release)
 Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.a
 
+//Use DBUG logging level instead of DEBUG. By default DEBUG is
+// the debugging level
+CHANGE_G3LOG_DEBUG_TO_DBUG:BOOL=OFF
+
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
-//Choose the type of build, options are: None Debug Release RelWithDebInfo
-// MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+//Build type, one of: Release, Debug
+CMAKE_BUILD_TYPE:STRING=Release
 
 //Id string of the compiler for the CodeBlocks IDE. Automatically
 // detected when left empty
@@ -168,8 +186,59 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 //Enable/Disable output of compile commands during generation.
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 
+//User executables (bin)
+CMAKE_INSTALL_BINDIR:PATH=bin
+
+//Read-only architecture-independent data (DATAROOTDIR)
+CMAKE_INSTALL_DATADIR:PATH=
+
+//Read-only architecture-independent data root (share)
+CMAKE_INSTALL_DATAROOTDIR:PATH=share
+
+//Documentation root (DATAROOTDIR/doc/PROJECT_NAME)
+CMAKE_INSTALL_DOCDIR:PATH=
+
+//Output dir for headers
+CMAKE_INSTALL_HEADERDIR:PATH=include
+
+//C header files (include)
+CMAKE_INSTALL_INCLUDEDIR:PATH=include
+
+//Info documentation (DATAROOTDIR/info)
+CMAKE_INSTALL_INFODIR:PATH=
+
+//Output dir for libraries
+CMAKE_INSTALL_LIBDIR:PATH=lib
+
+//Program executables (libexec)
+CMAKE_INSTALL_LIBEXECDIR:PATH=libexec
+
+//Locale-dependent data (DATAROOTDIR/locale)
+CMAKE_INSTALL_LOCALEDIR:PATH=
+
+//Modifiable single-machine data (var)
+CMAKE_INSTALL_LOCALSTATEDIR:PATH=var
+
+//Man documentation (DATAROOTDIR/man)
+CMAKE_INSTALL_MANDIR:PATH=
+
+//C header files for non-gcc (/usr/include)
+CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
+
 //Install path prefix, prepended onto install directories.
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
+
+//Run-time variable data (LOCALSTATEDIR/run)
+CMAKE_INSTALL_RUNSTATEDIR:PATH=
+
+//System admin executables (sbin)
+CMAKE_INSTALL_SBINDIR:PATH=sbin
+
+//Modifiable architecture-independent data (com)
+CMAKE_INSTALL_SHAREDSTATEDIR:PATH=com
+
+//Read-only single-machine data (etc)
+CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
@@ -211,6 +280,21 @@ CMAKE_PREFIX_PATH:STRING=/media/maxim/ffea1861-49ee-4b68-a2aa-6c986249cfc5/Qt/5.
 
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=cdr_sca
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION:STATIC=1.1.0
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MAJOR:STATIC=1
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MINOR:STATIC=1
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_PATCH:STATIC=0
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_TWEAK:STATIC=
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -271,17 +355,87 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to the coverage program that CTest uses for performing coverage
+// inspection
+COVERAGE_COMMAND:FILEPATH=/usr/bin/gcov
+
+//Extra command line flags to pass to the coverage tool
+COVERAGE_EXTRA_FLAGS:STRING=-l
+
+//Enable to build RPM source packages
+CPACK_SOURCE_RPM:BOOL=OFF
+
+//Enable to build TBZ2 source packages
+CPACK_SOURCE_TBZ2:BOOL=ON
+
+//Enable to build TGZ source packages
+CPACK_SOURCE_TGZ:BOOL=ON
+
+//Enable to build TXZ source packages
+CPACK_SOURCE_TXZ:BOOL=ON
+
+//Enable to build TZ source packages
+CPACK_SOURCE_TZ:BOOL=ON
+
+//Enable to build ZIP source packages
+CPACK_SOURCE_ZIP:BOOL=OFF
+
+//How many times to retry timed-out CTest submissions.
+CTEST_SUBMIT_RETRY_COUNT:STRING=3
+
+//How long to wait between timed-out CTest submissions.
+CTEST_SUBMIT_RETRY_DELAY:STRING=5
+
+//Path to a program.
+CVSCOMMAND:FILEPATH=CVSCOMMAND-NOTFOUND
+
+//Options passed to the cvs update command.
+CVS_UPDATE_OPTIONS:STRING=-d -A -P
+
+//Maximum time allowed before CTest will kill the test.
+DART_TESTING_TIMEOUT:STRING=1500
+
 //The directory the headers are installed in
 ELPP_INCLUDE_INSTALL_DIR:PATH=/usr/local/include
 
 //Installation directory for pkgconfig (.pc) files
 ELPP_PKGCONFIG_INSTALL_DIR:PATH=/usr/local/share/pkgconfig
 
+//Vectored exception / crash handling with improved stack trace
+ENABLE_FATAL_SIGNALHANDLING:BOOL=ON
+
 //Value Computed by CMake
 Easyloggingpp_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/easyloggingpp
 
 //Value Computed by CMake
 Easyloggingpp_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/easyloggingpp
+
+//iOS version of library.
+G3_IOS_LIB:BOOL=OFF
+
+//Log full filename
+G3_LOG_FULL_FILENAME:BOOL=OFF
+
+//Build shared library
+G3_SHARED_LIB:BOOL=ON
+
+//Path to a program.
+GITCOMMAND:FILEPATH=/usr/bin/git
+
+//Path to a program.
+HGCOMMAND:FILEPATH=HGCOMMAND-NOTFOUND
+
+//Command to build the project
+MAKECOMMAND:STRING=/home/maxim/Downloads/cmake-3.12.0/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
+
+//Path to the memory checking command, used for memory error detection.
+MEMORYCHECK_COMMAND:FILEPATH=/usr/bin/valgrind
+
+//File that contains suppressions for the memory checker
+MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
+
+//Path to a program.
+P4COMMAND:FILEPATH=P4COMMAND-NOTFOUND
 
 //Path to a program.
 ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
@@ -291,6 +445,38 @@ ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 
 //No help, variable specified on the command line.
 QT_QMAKE_EXECUTABLE:STRING=/media/maxim/ffea1861-49ee-4b68-a2aa-6c986249cfc5/Qt/5.10.0/gcc_64/bin/qmake
+
+//Path to scp command, used by CTest for submitting results to
+// a Dart server
+SCPCOMMAND:FILEPATH=/usr/bin/scp
+
+//Name of the computer/site where compile is being run
+SITE:STRING=maxim-All-Series
+
+//Path to the SLURM sbatch executable
+SLURM_SBATCH_COMMAND:FILEPATH=SLURM_SBATCH_COMMAND-NOTFOUND
+
+//Path to the SLURM srun executable
+SLURM_SRUN_COMMAND:FILEPATH=SLURM_SRUN_COMMAND-NOTFOUND
+
+//Build benchmarks
+SPDLOG_BUILD_BENCH:BOOL=OFF
+
+//Build examples
+SPDLOG_BUILD_EXAMPLES:BOOL=OFF
+
+//Build spdlog tests
+SPDLOG_BUILD_TESTING:BOOL=OFF
+
+//Path to a program.
+SVNCOMMAND:FILEPATH=SVNCOMMAND-NOTFOUND
+
+//Turn ON/OFF log levels. An disabled level will not push logs
+// of that level to the sink. By default dynamic logging is disabled
+USE_DYNAMIC_LOGGING_LEVELS:BOOL=OFF
+
+//Use dynamic memory for message buffer during log capturing
+USE_G3_DYNAMIC_MAX_MESSAGE_SIZE:BOOL=OFF
 
 //Build easyloggingpp as a static library
 build_static_lib:BOOL=OFF
@@ -331,6 +517,15 @@ coren_protocol_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/coren_cpp/protocol
 //Value Computed by CMake
 coren_protocol_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/coren_cpp/protocol
 
+//Value Computed by CMake
+g3log_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/g3log
+
+//Value Computed by CMake
+g3log_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/g3log
+
+//Dependencies for the target
+g3logger_LIB_DEPENDS:STATIC=general;rt;
+
 //Build library with UTC date/time logging
 lib_utc_datetime:BOOL=OFF
 
@@ -340,6 +535,24 @@ plog_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/plog
 //Value Computed by CMake
 plog_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/plog
 
+//Value Computed by CMake
+reckless_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/reckless
+
+//Value Computed by CMake
+reckless_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/reckless
+
+//Value Computed by CMake
+reckless_examples_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/reckless/examples
+
+//Value Computed by CMake
+reckless_examples_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/reckless/examples
+
+//Value Computed by CMake
+spdlog_BINARY_DIR:STATIC=/opt/svyazcom/cdr_sca/build/spdlog
+
+//Value Computed by CMake
+spdlog_SOURCE_DIR:STATIC=/opt/svyazcom/cdr_sca/spdlog
+
 //Build all tests
 test:BOOL=OFF
 
@@ -348,6 +561,8 @@ test:BOOL=OFF
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: BZRCOMMAND
+BZRCOMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_ATOMIC_LIBRARY_DEBUG
 Boost_ATOMIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_ATOMIC_LIBRARY_RELEASE
@@ -404,6 +619,8 @@ CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 CMAKE_COMMAND:INTERNAL=/home/maxim/Downloads/cmake-3.12.0/bin/cmake
 //Path to cpack program executable.
 CMAKE_CPACK_COMMAND:INTERNAL=/home/maxim/Downloads/cmake-3.12.0/bin/cpack
+//ADVANCED property for variable: CMAKE_CTEST_COMMAND
+CMAKE_CTEST_COMMAND-ADVANCED:INTERNAL=1
 //Path to ctest program executable.
 CMAKE_CTEST_COMMAND:INTERNAL=/home/maxim/Downloads/cmake-3.12.0/bin/ctest
 //ADVANCED property for variable: CMAKE_CXX_COMPILER
@@ -477,8 +694,40 @@ CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/opt/svyazcom/cdr_sca
+//ADVANCED property for variable: CMAKE_INSTALL_BINDIR
+CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DATADIR
+CMAKE_INSTALL_DATADIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DATAROOTDIR
+CMAKE_INSTALL_DATAROOTDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_DOCDIR
+CMAKE_INSTALL_DOCDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_INCLUDEDIR
+CMAKE_INSTALL_INCLUDEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_INFODIR
+CMAKE_INSTALL_INFODIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LIBDIR
+CMAKE_INSTALL_LIBDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LIBEXECDIR
+CMAKE_INSTALL_LIBEXECDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LOCALEDIR
+CMAKE_INSTALL_LOCALEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_LOCALSTATEDIR
+CMAKE_INSTALL_LOCALSTATEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_MANDIR
+CMAKE_INSTALL_MANDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_OLDINCLUDEDIR
+CMAKE_INSTALL_OLDINCLUDEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_RUNSTATEDIR
+CMAKE_INSTALL_RUNSTATEDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SBINDIR
+CMAKE_INSTALL_SBINDIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SHAREDSTATEDIR
+CMAKE_INSTALL_SHAREDSTATEDIR-ADVANCED:INTERNAL=1
 //Install .so files without execute permission.
 CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
+//ADVANCED property for variable: CMAKE_INSTALL_SYSCONFDIR
+CMAKE_INSTALL_SYSCONFDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
 CMAKE_LINKER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MAKE_PROGRAM
@@ -496,7 +745,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -545,12 +794,60 @@ COMPILER_SUPPORTS_CXX11:INTERNAL=1
 COMPILER_SUPPORTS_CXX14:INTERNAL=1
 //Test COMPILER_SUPPORTS_CXX1Y
 COMPILER_SUPPORTS_CXX1Y:INTERNAL=1
+//ADVANCED property for variable: COVERAGE_COMMAND
+COVERAGE_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: COVERAGE_EXTRA_FLAGS
+COVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_RPM
+CPACK_SOURCE_RPM-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TBZ2
+CPACK_SOURCE_TBZ2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TGZ
+CPACK_SOURCE_TGZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TXZ
+CPACK_SOURCE_TXZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TZ
+CPACK_SOURCE_TZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_ZIP
+CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT
+CTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY
+CTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CVSCOMMAND
+CVSCOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CVS_UPDATE_OPTIONS
+CVS_UPDATE_OPTIONS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: DART_TESTING_TIMEOUT
+DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//ADVANCED property for variable: GITCOMMAND
+GITCOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: HGCOMMAND
+HGCOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MAKECOMMAND
+MAKECOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MEMORYCHECK_COMMAND
+MEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE
+MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: P4COMMAND
+P4COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_getconf
 ProcessorCount_cmd_getconf-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl
 ProcessorCount_cmd_sysctl-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SCPCOMMAND
+SCPCOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SITE
+SITE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SLURM_SBATCH_COMMAND
+SLURM_SBATCH_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SLURM_SRUN_COMMAND
+SLURM_SRUN_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SVNCOMMAND
+SVNCOMMAND-ADVANCED:INTERNAL=1
 //Last used BOOST_ROOT value.
 _BOOST_ROOT_LAST:INTERNAL=/opt/svyazcom/cdr_sca/build/boost
 //Components requested for this build tree.
@@ -569,4 +866,6 @@ _Boost_USE_MULTITHREADED_LAST:INTERNAL=ON
 _Boost_USE_STATIC_LIBS_LAST:INTERNAL=ON
 //Last used Boost_USE_STATIC_RUNTIME value.
 _Boost_USE_STATIC_RUNTIME_LAST:INTERNAL=OFF
+//CMAKE_INSTALL_PREFIX during last run
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
 

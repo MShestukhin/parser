@@ -5,7 +5,7 @@
 		<Option title="cdr_sca"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\spdlog\;CMake Files\spdlog\cmake\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
@@ -17,11 +17,51 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="rebuild_cache">
+			<Target title="install/strip">
 				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="package">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 package"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="package_source">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 package_source"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
@@ -34,6 +74,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/opt/svyazcom/cdr_sca/spdlog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/plog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/cnora_cpp/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol"/>
@@ -63,6 +104,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/opt/svyazcom/cdr_sca/spdlog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/plog/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/cnora_cpp/include"/>
 					<Add directory="/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol"/>
@@ -85,6 +127,16 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
 				<Option type="4"/>
@@ -93,6 +145,56 @@
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Nightly">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build/spdlog"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 Nightly"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Experimental">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build/spdlog"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 Experimental"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="spdlog_headers_for_ide">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build/spdlog"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 spdlog_headers_for_ide"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Continuous">
+				<Option working_dir="/opt/svyazcom/cdr_sca/build/spdlog"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 Continuous"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/opt/svyazcom/cdr_sca/build/spdlog/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cnora_service">
@@ -848,6 +950,153 @@
 		<Unit filename="/opt/svyazcom/cdr_sca/parser.h">
 			<Option target="cdr_sca"/>
 		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/async.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/async_logger.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/common.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/async_logger_impl.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/circular_q.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/console_globals.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/file_helper.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/fmt_helper.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/log_msg.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/logger_impl.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/mpmc_blocking_q.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/null_mutex.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/os.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/pattern_formatter.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/periodic_worker.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/registry.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/details/thread_pool.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/colors.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/core.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/format-inl.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/format.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/locale.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/ostream.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/posix.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/printf.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/ranges.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/bundled/time.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/fmt.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/fmt/ostr.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/formatter.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/logger.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/android_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/ansicolor_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/base_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/basic_file_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/daily_file_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/dist_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/msvc_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/null_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/ostream_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/rotating_file_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/stdout_color_sinks.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/stdout_sinks.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/syslog_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/sinks/wincolor_sink.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/spdlog.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/tweakme.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/include/spdlog/version.h">
+			<Option target="spdlog_headers_for_ide"/>
+		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/worker_cnora.cpp">
 			<Option target="cdr_sca"/>
 		</Unit>
@@ -862,6 +1111,15 @@
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\spdlog\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/cmake/sanitizers.cmake">
+			<Option virtualFolder="CMake Files\spdlog\cmake\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/cmake/spdlog.pc.in">
+			<Option virtualFolder="CMake Files\spdlog\cmake\"/>
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/plog/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\plog\"/>

@@ -1,6 +1,0 @@
-2018-Sep-12 13:46:47.153750 INFO    [worker_cnora.cpp]:37	Coren ready to work
-File detected ./cdr/camel_1527843990.cdrmv ./cdr/camel_1527843990.cdr ./upload/camel_1527843990.cdr -f99
-INSERT INTO steer.sca_sc_stat (stamp,imsi,msisdn,num_b,num_c,dur,cause,bcsm_type_id,label,service_key) VALUES('2018-06-01 12:06:39'::timestamp,'262031000010054'::varchar,'04.1.0.491789002570'::varchar,'0.1.37580297776477'::varchar,'04.1.0.375297776477'::varchar,'0'::int4,'0'::int2,'10'::int2,'SCA: 19, msisdn in white list'::varchar,979
-::int2),('2018-06-01 12:06:30'::timestamp,'262031000010051'::varchar,'04.1.0.491789002571'::varchar,'0.1.37580297776471'::varchar,'04.1.0.375297776471'::varchar,'0'::int4,'0'::int2,'10'::int2,'SCA: 11, msisdn in white list'::varchar,971
-::int2)
-File detected ./upload/camel_1527843990.cdrmv ./upload/camel_1527843990.cdr ./done/done_camel_1527843990.cdr -f2018-Sep-12 13:47:11.728728 INFO    [main.cpp]:61	Got signal 2:Interrupt

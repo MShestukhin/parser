@@ -5,7 +5,7 @@
 		<Option title="cnora_service"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\spdlog\;CMake Files\spdlog\cmake\;CMake Files\plog\;CMake Files\cnora_cpp\;CMake Files\cnora_cpp\protocol\;CMake Files\coren_cpp\;CMake Files\coren_cpp\protocol\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/opt/svyazcom/cdr_sca/build/cnora_cpp"/>
@@ -355,6 +355,15 @@
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\spdlog\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/cmake/sanitizers.cmake">
+			<Option virtualFolder="CMake Files\spdlog\cmake\"/>
+		</Unit>
+		<Unit filename="/opt/svyazcom/cdr_sca/spdlog/cmake/spdlog.pc.in">
+			<Option virtualFolder="CMake Files\spdlog\cmake\"/>
 		</Unit>
 		<Unit filename="/opt/svyazcom/cdr_sca/plog/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\plog\"/>

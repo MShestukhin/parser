@@ -42,6 +42,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
+add_subdirectory(spdlog)
+target_link_libraries(${PROJECT_NAME} spdlog)
 add_subdirectory(plog)
 target_link_libraries(${PROJECT_NAME} plog)
 add_subdirectory(cnora_cpp)
