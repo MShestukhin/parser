@@ -57,9 +57,22 @@ include CMakeFiles/cdr_sca.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/cdr_sca.dir/flags.make
 
+CMakeFiles/cdr_sca.dir/log.cpp.o: CMakeFiles/cdr_sca.dir/flags.make
+CMakeFiles/cdr_sca.dir/log.cpp.o: ../log.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cdr_sca.dir/log.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cdr_sca.dir/log.cpp.o -c /opt/svyazcom/cdr_sca/log.cpp
+
+CMakeFiles/cdr_sca.dir/log.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cdr_sca.dir/log.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /opt/svyazcom/cdr_sca/log.cpp > CMakeFiles/cdr_sca.dir/log.cpp.i
+
+CMakeFiles/cdr_sca.dir/log.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cdr_sca.dir/log.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/svyazcom/cdr_sca/log.cpp -o CMakeFiles/cdr_sca.dir/log.cpp.s
+
 CMakeFiles/cdr_sca.dir/main.cpp.o: CMakeFiles/cdr_sca.dir/flags.make
 CMakeFiles/cdr_sca.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cdr_sca.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cdr_sca.dir/main.cpp.o"
 	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cdr_sca.dir/main.cpp.o -c /opt/svyazcom/cdr_sca/main.cpp
 
 CMakeFiles/cdr_sca.dir/main.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/cdr_sca.dir/main.cpp.s: cmake_force
 
 CMakeFiles/cdr_sca.dir/parser.cpp.o: CMakeFiles/cdr_sca.dir/flags.make
 CMakeFiles/cdr_sca.dir/parser.cpp.o: ../parser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cdr_sca.dir/parser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cdr_sca.dir/parser.cpp.o"
 	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cdr_sca.dir/parser.cpp.o -c /opt/svyazcom/cdr_sca/parser.cpp
 
 CMakeFiles/cdr_sca.dir/parser.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/cdr_sca.dir/parser.cpp.s: cmake_force
 
 CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o: CMakeFiles/cdr_sca.dir/flags.make
 CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o: ../worker_cnora.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o"
 	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o -c /opt/svyazcom/cdr_sca/worker_cnora.cpp
 
 CMakeFiles/cdr_sca.dir/worker_cnora.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/cdr_sca.dir/worker_cnora.cpp.s: cmake_force
 
 CMakeFiles/cdr_sca.dir/working_file.cpp.o: CMakeFiles/cdr_sca.dir/flags.make
 CMakeFiles/cdr_sca.dir/working_file.cpp.o: ../working_file.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cdr_sca.dir/working_file.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cdr_sca.dir/working_file.cpp.o"
 	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cdr_sca.dir/working_file.cpp.o -c /opt/svyazcom/cdr_sca/working_file.cpp
 
 CMakeFiles/cdr_sca.dir/working_file.cpp.i: cmake_force
@@ -111,6 +124,7 @@ CMakeFiles/cdr_sca.dir/working_file.cpp.s: cmake_force
 
 # Object files for target cdr_sca
 cdr_sca_OBJECTS = \
+"CMakeFiles/cdr_sca.dir/log.cpp.o" \
 "CMakeFiles/cdr_sca.dir/main.cpp.o" \
 "CMakeFiles/cdr_sca.dir/parser.cpp.o" \
 "CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o" \
@@ -119,6 +133,7 @@ cdr_sca_OBJECTS = \
 # External object files for target cdr_sca
 cdr_sca_EXTERNAL_OBJECTS =
 
+cdr_sca: CMakeFiles/cdr_sca.dir/log.cpp.o
 cdr_sca: CMakeFiles/cdr_sca.dir/main.cpp.o
 cdr_sca: CMakeFiles/cdr_sca.dir/parser.cpp.o
 cdr_sca: CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o
@@ -146,7 +161,7 @@ cdr_sca: /usr/lib/x86_64-linux-gnu/libboost_date_time.a
 cdr_sca: /usr/lib/x86_64-linux-gnu/libboost_chrono.a
 cdr_sca: /usr/lib/x86_64-linux-gnu/libboost_atomic.a
 cdr_sca: CMakeFiles/cdr_sca.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable cdr_sca"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/opt/svyazcom/cdr_sca/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable cdr_sca"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cdr_sca.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

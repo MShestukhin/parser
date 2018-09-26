@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/opt/svyazcom/cdr_sca/log.cpp" "/opt/svyazcom/cdr_sca/build/CMakeFiles/cdr_sca.dir/log.cpp.o"
   "/opt/svyazcom/cdr_sca/main.cpp" "/opt/svyazcom/cdr_sca/build/CMakeFiles/cdr_sca.dir/main.cpp.o"
   "/opt/svyazcom/cdr_sca/parser.cpp" "/opt/svyazcom/cdr_sca/build/CMakeFiles/cdr_sca.dir/parser.cpp.o"
   "/opt/svyazcom/cdr_sca/worker_cnora.cpp" "/opt/svyazcom/cdr_sca/build/CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o"
@@ -13,8 +14,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../spdlog/include"
-  "../plog/include"
   "../cnora_cpp/include"
   "cnora_cpp/protocol"
   "../coren_cpp/include"

@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/cdr_sca.dir/log.cpp.o"
   "CMakeFiles/cdr_sca.dir/main.cpp.o"
   "CMakeFiles/cdr_sca.dir/parser.cpp.o"
   "CMakeFiles/cdr_sca.dir/worker_cnora.cpp.o"

@@ -24,13 +24,11 @@ else()
     message(FATAL_ERROR "Compiler ${CMAKE_CXX_COMPILER} has no C++11 support.")
 endif()
 
-
 set( boost_URL "http://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.bz2" )
 set( boost_SHA1 "9f1dd4fa364a3e3156a77dc17aa562ef06404ff6" )
 set( boost_INSTALL ${CMAKE_CURRENT_BINARY_DIR}/boost )
 set( boost_INCLUDE_DIR ${boost_INSTALL}/include )
 set( boost_LIB_DIR ${boost_INSTALL}/lib )
-
 set(BOOST_ROOT ${boost_INSTALL})
 set(BOOST_INCLUDE_DIRS "${BOOST_ROOT}/include")
 set(BOOST_LIBRARY_DIRS "${BOOST_ROOT}/lib")
@@ -42,10 +40,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
-add_subdirectory(spdlog)
-target_link_libraries(${PROJECT_NAME} spdlog)
-add_subdirectory(plog)
-target_link_libraries(${PROJECT_NAME} plog)
 add_subdirectory(cnora_cpp)
 target_link_libraries(${PROJECT_NAME} cnora_service)
 ### coren library

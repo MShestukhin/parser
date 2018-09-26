@@ -39,8 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/opt/svyazcom/cdr_sca/build/spdlog/cmake_install.cmake")
-  include("/opt/svyazcom/cdr_sca/build/plog/cmake_install.cmake")
   include("/opt/svyazcom/cdr_sca/build/cnora_cpp/cmake_install.cmake")
   include("/opt/svyazcom/cdr_sca/build/coren_cpp/cmake_install.cmake")
 

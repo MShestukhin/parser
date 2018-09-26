@@ -3,7 +3,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <algorithm>
-#include <plog/Log.h>
+#include "log.h"
+extern class log logg;
 Working_file::Working_file()
 {
     file_mtime=0;
@@ -30,7 +31,7 @@ vector<Working_file> file_lookup(string absolute_path, string file_name,bool (*p
     dir=opendir(absolute_path.c_str());
     if(dir==nullptr)
     {
-        LOGE <<"Can not open folder ";
+        logg.error("Can not open folder ");
         return vdata_file;
     }
     while ((entry=readdir(dir))!=nullptr)
@@ -61,14 +62,14 @@ void transport_file(string format,string from_pth, string to_pth, string file, b
     for(int i=0;i<dmp.size();i++)
     {
         string absolute_path_to_file=dmp.at(i).name;
-        LOGI <<"File detected "<<absolute_path_to_file;
+        logg.info("File detected "+absolute_path_to_file);
         char buffer[80];
         time_t seconds = time(nullptr);
         tm* timeinfo = localtime(&seconds);
         strftime(buffer, 80, format.c_str(), timeinfo);
         string work_file=to_pth+"/"+std::string(buffer)+absolute_path_to_file.substr(absolute_path_to_file.rfind("/")+1,string::npos);
         std::string str_copy_result_cmd="mv "+absolute_path_to_file+" "+work_file+" -f";
-        LOGI <<str_copy_result_cmd;
+        logg.info(str_copy_result_cmd);
         system(str_copy_result_cmd.c_str());
     }
 }

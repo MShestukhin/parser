@@ -6,5 +6,5 @@ CXX_FLAGS = -lrt -std=c++14 -O3 -DNDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/opt/svyazcom/cdr_sca/spdlog/include -I/opt/svyazcom/cdr_sca/plog/include -I/opt/svyazcom/cdr_sca/cnora_cpp/include -I/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol -I/opt/svyazcom/cdr_sca/coren_cpp/include -I/opt/svyazcom/cdr_sca/coren_cpp/protocol -I/opt/svyazcom/cdr_sca/build/coren_cpp/protocol 
+CXX_INCLUDES = -I/opt/svyazcom/cdr_sca/cnora_cpp/include -I/opt/svyazcom/cdr_sca/build/cnora_cpp/protocol -I/opt/svyazcom/cdr_sca/coren_cpp/include -I/opt/svyazcom/cdr_sca/coren_cpp/protocol -I/opt/svyazcom/cdr_sca/build/coren_cpp/protocol 
 
