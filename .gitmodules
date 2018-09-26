@@ -1,7 +1,6 @@
 [submodule "coren_cpp"]
 	path = coren_cpp
-	url = ../../coren/coren_cpp.git
+	url = git@gitsrv.svyazcom.ru:coren/coren_cpp.git
 [submodule "cnora_cpp"]
 	path = cnora_cpp
-	url = ../../coren/cnora_cpp.git
-
+	url = git@gitsrv.svyazcom.ru:coren/cnora_cpp.git
