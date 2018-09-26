@@ -1,0 +1,33 @@
+CnoraProtocol DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+DbValue ::= CHOICE {
+    null    [0] NULL,
+    integer [1] INTEGER,
+    string  [2] UTF8String,
+    number  [3] REAL
+}
+
+DbValues ::= SEQUENCE OF DbValue
+
+DbRequest ::= SEQUENCE {
+    request [0] UTF8String OPTIONAL,
+    flags   [1] INTEGER OPTIONAL,
+    params  [2] DbValues OPTIONAL,
+    label   [3] UTF8String OPTIONAL
+}
+
+DbRow ::= SEQUENCE OF DbValue
+
+DbRows ::= SEQUENCE OF DbRow
+
+DbResponse ::= SEQUENCE {
+    code           [0] INTEGER,
+    message        [1] UTF8String OPTIONAL,
+    dataset        [2] DbRows OPTIONAL,
+    params         [3] DbValues OPTIONAL,
+    label          [4] UTF8String OPTIONAL,
+    total-rows-num [5] INTEGER OPTIONAL
+}
+
+END

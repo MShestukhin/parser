@@ -1,0 +1,84 @@
+MsgProto1 DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+MsgAddr ::= SEQUENCE {
+	hostname [0] UTF8String OPTIONAL,
+	svcname  [1] UTF8String OPTIONAL,
+	svcconn  [2] INTEGER OPTIONAL
+}
+
+Message ::= SEQUENCE {
+	src   [0] MsgAddr,
+	dst   [1] MsgAddr,
+	flags [2] INTEGER,
+	sid   [3] UTF8String OPTIONAL,
+	tmo   [4] INTEGER OPTIONAL,      --session timeout, us
+	label [5] UTF8String OPTIONAL,
+	body  [6] OCTET STRING OPTIONAL
+}
+
+AnnounceData ::= SEQUENCE {
+	addr      [0] MsgAddr,
+	priority  [1] INTEGER
+}
+
+SvcAnnounce ::= SEQUENCE {
+	announce-timeout   [0] INTEGER,      --announce timeout, us
+	hostname           [1] UTF8String,
+	data               [2] SEQUENCE OF AnnounceData
+}
+
+SetSvcName ::= SEQUENCE {
+	svcname  [0] UTF8String,
+	priority [1] INTEGER
+}
+
+CoreNErrorCode ::= ENUMERATED {
+	success (0),                                    --Operation's success
+	unknown-error (1),                              --Don't change this line
+	coren-svc-node-not-found (2),                   --Service name CoreN, hostname (node) not found in the router table
+	svc-not-found (3),                              --Service name not found for the message
+	svc-and-or-conn-not-found (4),                  --Service name/connection id not found for given host and/or connection id
+	coren-svc-message-is-empty (5),                 --Error in virtual service CoreN, message body is empty
+	coren-svc-body-constrait-validation-failed (6), --Constraint validation failed CoreNProtocol:
+	coren-svc-body-decode-message-failed (7),       --Can't decode the message CoreNProtocol
+	coren-svc-reg-host-src-is-incorrect (8),        --The source node(host) isn't localhost
+	session-flags-arent-correct (9),                --The session flags aren't correct
+	session-already-exists (10),                    --The session already exists
+	session-not-found (11),                         --The session not found
+	session-addresses-is-incorrect (12),            --The session addresses is incorrect
+	session-closed-is-mandatory (13),               --Closed session is mandatory
+	session-timeout (14)                            --Session timeout
+}
+
+CoreNError ::= SEQUENCE {
+	errorcode [0] CoreNErrorCode,
+	errormsg  [1] UTF8String OPTIONAL,
+	sid       [2] UTF8String
+}
+
+CoreNInfoCode ::= ENUMERATED {
+	router-table (0),
+	nodes (1),
+	count-of-session (2),
+	clients (3)
+}
+
+CoreNInfoRequest ::= SEQUENCE {
+	code [0] CoreNInfoCode
+}
+
+CoreNInfoResponse ::= SEQUENCE {
+	info  [0] UTF8String,
+	code  [1] CoreNInfoCode
+}
+
+CoreNProtocol ::= CHOICE {
+	setsvcname    [0] SetSvcName,
+	svcsann       [1] SvcAnnounce,
+	errormsg      [2] CoreNError,
+	info-request  [3] CoreNInfoRequest,
+	info-response [4] CoreNInfoResponse
+}
+
+END
