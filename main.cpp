@@ -67,6 +67,7 @@ void on_signal(const boost::system::error_code& error, int signal_number)
     }
     logg.error("Got signal "+to_string(signal_number)+":"+strsignal(signal_number));
     exit(1);
+
 }
 
 void iosThread(){

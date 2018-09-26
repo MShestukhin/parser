@@ -1,6 +1,6 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
-
+*CMakeLists.txt.user
 *~
 *.autosave
 *.a
@@ -34,7 +34,7 @@ Thumbs.db
 *.rc
 /.qmake.cache
 /.qmake.stash
-
+/build
 # qtcreator generated files
 *.pro.user*
 
