@@ -2,9 +2,11 @@
 #include <iostream>
 #include "log.h"
 extern class log logg;
+extern string coren_socket;
+extern string cnora_name;
 CoreN::InterfacePtr getCoreN(boost::asio::io_service& ios)
 {
-    const std::string& unix_socket_name = "/opt/svyazcom/var/run/coren.sock";
+    const std::string& unix_socket_name =coren_socket ;
     unsigned int reconnect_tmo = 5;
     return CoreN::Interface::Create(ios, unix_socket_name, reconnect_tmo);
 }
@@ -12,7 +14,7 @@ CoreN::InterfacePtr getCoreN(boost::asio::io_service& ios)
 CoreN::CNoraPtr getCNora(const CoreN::InterfacePtr& I)
 {
     const CoreN::Service::Address remote {
-        "CNORA", "", 0
+        cnora_name, "", 0
     };
     const boost::chrono::milliseconds timeout {
         1000

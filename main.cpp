@@ -22,6 +22,8 @@ string db_schema;
 string db_table;
 vector<string> table_name;
 vector<string> table_type;
+string coren_socket;
+string cnora_name;
 
 void init(){
     std::ifstream file;
@@ -42,8 +44,12 @@ void init(){
             table_name.push_back( v.second.data());
         for(boost::property_tree::ptree::value_type &v : pt.get_child("tableType"))
             table_type.push_back( v.second.data());
+
         db_schema=pt.get<string>("dataBase.schema");
         db_table=pt.get<string>("dataBase.table");
+
+        coren_socket=pt.get<string>("cnora.coren_socket");
+        cnora_name=pt.get<string>("cnora.cnora_name");
 
     } catch (boost::property_tree::json_parser::json_parser_error &je) {
         logg.error("Error parsing: " + je.filename() + " on line: " + to_string(je.line()));
@@ -53,7 +59,6 @@ void init(){
 }
 
 boost::asio::io_service io;
-Worker_cnora cnora(io);
 
 void on_signal(const boost::system::error_code& error, int signal_number)
 {
@@ -61,10 +66,27 @@ void on_signal(const boost::system::error_code& error, int signal_number)
         logg.error("Signal with error :"+error.message());
     }
     logg.error("Got signal "+to_string(signal_number)+":"+strsignal(signal_number));
-    cnora.stop();
+    exit(1);
 }
 
-void mainThread(){
+void iosThread(){
+    boost::asio::signal_set signals(io, SIGINT, SIGTERM);
+    signals.async_wait(
+        boost::bind(&on_signal, _1, _2)
+    );
+    boost::system::error_code error;
+    io.run(error);
+    if (error) {
+        logg.error("ios.run() error: " + error.message());
+    }
+    logg.error("ios thread terminated");
+}
+
+int main()
+{
+    init();
+    boost::thread thread(&iosThread);
+    Worker_cnora cnora(io);
     while(1){
         sleep(5);
         string format="";
@@ -85,22 +107,6 @@ void mainThread(){
             transport_file(format,work_pth,done_pth,src_fl,contains);
         }
     }
-}
-
-int main()
-{
-    init();
-    boost::thread thread(&mainThread);
-    boost::asio::signal_set signals(io, SIGINT, SIGTERM);
-    signals.async_wait(
-        boost::bind(&on_signal, _1, _2)
-    );
-    boost::system::error_code error;
-    io.run(error);
     thread.join();
-    if (error) {
-        logg.error("ios.run() error: " + error.message());
-    }
-    logg.error("ios thread terminated");
     return 0;
 }
