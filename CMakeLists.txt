@@ -10,6 +10,7 @@ source_group ("Header Files" FILES ${HEADERS})
 aux_source_directory(. SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
+#test compiler
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -24,6 +25,7 @@ else()
     message(FATAL_ERROR "Compiler ${CMAKE_CXX_COMPILER} has no C++11 support.")
 endif()
 
+#add boost
 set( boost_URL "http://sourceforge.net/projects/boost/files/boost/1.65.1/boost_1_65_1.tar.bz2" )
 set( boost_SHA1 "9f1dd4fa364a3e3156a77dc17aa562ef06404ff6" )
 set( boost_INSTALL ${CMAKE_CURRENT_BINARY_DIR}/boost )
@@ -40,9 +42,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
+#add cnora
 add_subdirectory(cnora_cpp)
 target_link_libraries(${PROJECT_NAME} cnora_service)
-### coren library
+#add coren
 add_subdirectory(coren_cpp)
 target_link_libraries(${PROJECT_NAME} coren_interface)
 

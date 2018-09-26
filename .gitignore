@@ -34,7 +34,11 @@ Thumbs.db
 *.rc
 /.qmake.cache
 /.qmake.stash
+/.idea
 /build
+/centos_build
+/cnora_cpp
+/coren_cpp
 # qtcreator generated files
 *.pro.user*
 

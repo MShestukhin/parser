@@ -27,27 +27,30 @@ string cnora_name;
 
 void init(){
     std::ifstream file;
-    file.open("/opt/svyazcom/etc/cdr.conf");
-    if(!file.is_open())
-        logg.error("Error open config file");
+    file.open("/opt/svyazcom/etc/cdr_sca.conf");
+    if(!file.is_open()){
+        std::cout<<"Error to open config file;";
+        exit(2);
+    }
     ptree pt;
     try {
         read_json(file, pt);
+        //work paths
         src_fl=pt.get<string>("paths.sourceFile");
         from_pth=pt.get<string>("paths.sourceDir");
         work_pth=pt.get<string>("paths.uploadDir");
         done_pth=pt.get<string>("paths.workOutDir");
         log_pth=pt.get<string>("paths.logDir");
-            logg.init(log_pth);
+        //log
+        logg.init(log_pth);
         //database
         for(boost::property_tree::ptree::value_type &v : pt.get_child("tableName"))
             table_name.push_back( v.second.data());
         for(boost::property_tree::ptree::value_type &v : pt.get_child("tableType"))
             table_type.push_back( v.second.data());
-
         db_schema=pt.get<string>("dataBase.schema");
         db_table=pt.get<string>("dataBase.table");
-
+        //cnora
         coren_socket=pt.get<string>("cnora.coren_socket");
         cnora_name=pt.get<string>("cnora.cnora_name");
 
@@ -91,8 +94,8 @@ int main()
     while(1){
         sleep(5);
         string format="";
-        transport_file(format,from_pth,work_pth,src_fl,contains);
-        vector<Working_file> upload_file=file_lookup(work_pth,src_fl,contains);
+        transport_file(format,from_pth,work_pth,src_fl,contains); //find and replace file, from folder to module_work_folder
+        vector<Working_file> upload_file=file_lookup(work_pth,src_fl,contains); //try to find file in module_work_folder with src_fl extention (in this module .cdr)
         for(auto ff : upload_file){
             string file_name=ff.name;
             logg.info("Begin work with "+file_name);

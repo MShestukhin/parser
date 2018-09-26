@@ -48,7 +48,7 @@ void Worker_cnora::stop(){
             CoreN::Service::Role /*role*/,
             const boost::shared_ptr<CoreN::Service::Address>& /*master*/
         ){
-            logg.info(&"Service UnRegistered " [ error]);
+            logg.info("Service UnRegistered " +to_string(error));
         });
 }
 
@@ -79,7 +79,7 @@ void Worker_cnora::insertDb(vector<vector<string>> data_ln, string db_schema, st
                 [](const CoreN::CNora::Rows& ) {},
                 [](const CoreN::Error& error){
                     if(error!=0)
-                        logg.error(&"Request status: " [ error]);
+                        logg.error("Request status: " + to_string(error));
                 } // Method on request finish
         );
         v.clear();
@@ -122,7 +122,7 @@ int Worker_cnora::multiple_insertDb(vector<vector<string>> data_ln, string db_sc
                 [](const CoreN::CNora::Rows& ) {},
                 [](const CoreN::Error& error){
             if(error!=0)
-                logg.error( &"Request status: "  [error]);
+                logg.error( "Request status: " + to_string(error));
             else
                 logg.info("Success edit to database");
                         //std::cout << "Request status: " << error << std::endl;
